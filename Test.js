@@ -3,13 +3,17 @@ export default class Test {
     return val === val2 ? true : console.log(val, "!==", val2);
   }
 
-  assertSimilar(arr1, arr2) {
-    if (arr1.length !== arr2.length) {
-      return false;
-    }
+  assertSimilar(obj1, obj2) {
+    if (Array.isArray(obj1)) {
+      if (obj1.length !== obj2.length) {
+        return false;
+      }
 
-    return arr1.some((arr, idx) => {
-      return arr === arr2[idx];
-    });
+      return obj1.some((arr, idx) => {
+        return arr === obj2[idx];
+      });
+    } else {
+      return JSON.stringify(obj1) === JSON.stringify(obj2);
+    }
   }
 }
