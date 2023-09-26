@@ -5,6 +5,7 @@ export default class Test {
 
   assertSimilar(obj1, obj2) {
     if (typeof obj1 !== typeof obj2) {
+      console.log(typeof obj1, "!==", typeof obj2);
       return false;
     }
 
