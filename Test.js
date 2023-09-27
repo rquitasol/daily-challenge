@@ -15,7 +15,11 @@ export default class Test {
       }
 
       const every = obj1.every((arr, idx) => {
-        return arr === obj2[idx];
+        if (typeof arr === "object" && typeof obj2[idx] === "object") {
+          return JSON.stringify(arr) === JSON.stringify(obj2[idx]);
+        } else {
+          return arr === obj2[idx];
+        }
       });
 
       if (!every) {
