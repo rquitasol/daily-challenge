@@ -4,30 +4,45 @@ export default class Test {
   }
 
   assertSimilar(obj1, obj2) {
-    if (typeof obj1 !== typeof obj2) {
-      console.log(typeof obj1, "!==", typeof obj2);
-      return false;
-    }
-
-    if (Array.isArray(obj1)) {
-      if (obj1.length !== obj2.length) {
+    const areSimilar = (a, b) => {
+      if (typeof a !== typeof b) {
+        console.log(typeof a, "!==", typeof b);
         return false;
       }
 
-      const every = obj1.every((arr, idx) => {
-        return arr === obj2[idx];
-      });
+      if (Array.isArray(a)) {
+        if (!Array.isArray(b) || a.length !== b.length) {
+          return false;
+        }
 
-      if (!every) {
-        console.log(JSON.stringify(obj1), "!==", JSON.stringify(obj2));
-        return false;
+        for (let i = 0; i < a.length; i++) {
+          if (!areSimilar(a[i], b[i])) {
+            return false;
+          }
+        }
+      } else if (typeof a === "object" && a !== null) {
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+
+        if (keysA.length !== keysB.length) {
+          return false;
+        }
+
+        for (const key of keysA) {
+          if (!keysB.includes(key) || !areSimilar(a[key], b[key])) {
+            return false;
+          }
+        }
+      } else {
+        if (a !== b) {
+          console.log(JSON.stringify(a), "!==", JSON.stringify(b));
+          return false;
+        }
       }
-    } else {
-      if (JSON.stringify(obj1) !== JSON.stringify(obj2)) {
-        console.log(JSON.stringify(obj1), "!==", JSON.stringify(obj2));
-        return false;
-      }
+
       return true;
-    }
+    };
+
+    return areSimilar(obj1, obj2);
   }
 }
