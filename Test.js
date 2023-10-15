@@ -1,5 +1,6 @@
 export default class Test {
   assertEquals(val, val2) {
+    console.log("Passed: " + val, "--" + val2);
     return val === val2 ? true : console.log(val, "!==", val2);
   }
 
@@ -43,6 +44,7 @@ export default class Test {
       return true;
     };
 
+    console.log("Passed: " + obj1, "  --  " + obj1);
     return areSimilar(obj1, obj2);
   }
 }
