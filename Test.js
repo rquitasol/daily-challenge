@@ -7,7 +7,7 @@ export default class Test {
   assertSimilar(obj1, obj2) {
     const areSimilar = (a, b) => {
       if (typeof a !== typeof b) {
-        console.log(typeof a, "!==", typeof b);
+        console.error("Failed: ", typeof a, "!==", typeof b);
         return false;
       }
 
@@ -36,7 +36,12 @@ export default class Test {
         }
       } else {
         if (a !== b) {
-          console.log(JSON.stringify(a), "!==", JSON.stringify(b));
+          console.error(
+            "Failed: ",
+            JSON.stringify(a),
+            "!==",
+            JSON.stringify(b)
+          );
           return false;
         }
       }
